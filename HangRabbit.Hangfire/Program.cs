@@ -1,6 +1,18 @@
+using Hangfire;
+using Hangfire.Console;
+using Hangfire.PostgreSql;
+using HangRabbit.Hangfire.Jobs;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(x => x.UseNpgsqlConnection("Host=localhost;Port=5432;Database=Erick;User Id=postgres;Password=admin;")).UseConsole());
+
+// Add the processing server as IHostedService
+builder.Services.AddHangfireServer();
+
+builder.Services.AddScoped<ITestJob, TestJob>();
+builder.Services.AddScoped<ITestRecurringJob, TestRecurringJob>();
 
 var app = builder.Build();
 
@@ -8,27 +20,8 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.UseHangfireDashboard();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
+RecurringJob.AddOrUpdate<ITestRecurringJob>("Test Recurring Job", x => x.DoRecurringThing(CancellationToken.None, null), "0 2 * * *", new RecurringJobOptions { TimeZone = TimeZoneInfo.Local });
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

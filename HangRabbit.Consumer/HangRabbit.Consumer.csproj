@@ -6,4 +6,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Hangfire.Core" Version="1.8.20" />
+    <PackageReference Include="MassTransit" Version="8.4.1" />
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HangRabbit.Hangfire\HangRabbit.Hangfire.csproj" />
+    <ProjectReference Include="..\HangRabbit.Shared\HangRabbit.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
