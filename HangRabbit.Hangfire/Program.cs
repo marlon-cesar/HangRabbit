@@ -8,7 +8,10 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(x => x.UseNpgsqlConnection("Host=localhost;Port=5432;Database=Erick;User Id=postgres;Password=admin;")).UseConsole());
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddHangfire(x => x.UsePostgreSqlStorage(x => x.UseNpgsqlConnection(connectionString)).UseConsole());
 
 // Add the processing server as IHostedService
 builder.Services.AddHangfireServer();
