@@ -1,4 +1,5 @@
-﻿using Hangfire.Server;
+﻿using Hangfire.Console;
+using Hangfire.Server;
 using HangRabbit.Models;
 
 namespace HangRabbit.Hangfire.Jobs
@@ -7,7 +8,7 @@ namespace HangRabbit.Hangfire.Jobs
     {
         public async Task DoThings(TestEvent testEvent, CancellationToken cancellationToken, PerformContext? contexto = null)
         {
-            Console.WriteLine(testEvent);
+            contexto?.WriteLine(testEvent.ToString());
         }
     }
 }

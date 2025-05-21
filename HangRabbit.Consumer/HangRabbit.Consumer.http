@@ -1,6 +1,0 @@
-@HangRabbit.Consumer_HostAddress = http://localhost:5148
-
-GET {{HangRabbit.Consumer_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

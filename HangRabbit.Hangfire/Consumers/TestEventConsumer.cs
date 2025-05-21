@@ -3,7 +3,7 @@ using HangRabbit.Hangfire.Jobs;
 using HangRabbit.Models;
 using MassTransit;
 
-namespace HangRabbit.Consumer
+namespace HangRabbit.Hangfire.Consumers
 {
 
     public class TestEventConsumer : IConsumer<TestEvent>

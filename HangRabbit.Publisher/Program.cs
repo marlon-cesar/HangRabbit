@@ -8,11 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMassTransit(busConfigurator =>
 {
     busConfigurator.SetKebabCaseEndpointNameFormatter();
-    busConfigurator.UsingRabbitMq((context, busFactoryConfigurator) =>
+    busConfigurator.UsingRabbitMq((context, config) =>
     {
-        busFactoryConfigurator.Host("rabbitmq", hostConfigurator => { });
+        config.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
     });
 });
+
 
 var app = builder.Build();
 
