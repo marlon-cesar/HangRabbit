@@ -54,8 +54,6 @@ Username: guest
 
 Password: guest
 
-Make sure your appsettings.json or environment variables match this configuration.
-
 
 ---
 
@@ -82,8 +80,6 @@ Hangfire uses PostgreSQL to store background job data. To configure:
    - Start listening to the queue
    - Run scheduled background jobs
 3. Start the HangRabbit.Publisher project and call the POST endpoint /test to enqueue a message.
-
-You can test it with a simple curl command:
 
 
 ---
