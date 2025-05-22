@@ -89,7 +89,7 @@ You can test it with a simple curl command:
 ---
 
 
-🧪 Technologies Used
+## 🧪 Technologies Used
 - .NET 9
 - RabbitMQ (manual setup on Windows)
 - Hangfire
